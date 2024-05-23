@@ -1,55 +1,5 @@
-/* Basic reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body, html {
-  font-family: Arial, sans-serif;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-body::-webkit-scrollbar {
-  display: none;
-}
-
-header {
-  background-color: rgba(0,0,0,0);
-  color: #000;
-  padding: 16px 20px;
-  position: relative;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-header nav ul.menu {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  font-family: sans-serif;;
-}
-
 a {
   font-size: 25px;
-}
-
-header nav ul.menu li a {
-  color: black; /* Black text for the links */
-  text-decoration: none;
-  padding-left: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-right: 20px;
-  font-weight: 400;
 }
 
 main {
@@ -81,7 +31,7 @@ main {
 }
 
 #about-me, #recent-project{
-  height: 700px;  /* Adjust height as necessary */
+  height: 600px;  /* Adjust height as necessary */
   display: flex;  /* Enables flexbox */
   justify-content: center;  /* Centers the children horizontally */
   align-items: center;  /* Aligns the children vertically to the middle */
@@ -97,7 +47,7 @@ main {
   display: block;      
   margin: 0 auto;
   position: relative;
-  height: 700px;
+  height: 600px;
   border-radius: 30px 0px 0px 30px;
 }
 
@@ -124,21 +74,25 @@ main {
   background-color: rgb(255, 255, 255);
   border-radius: 8px;
   border: none;
-  box-shadow: 2px 2px 5px rgb(19, 19, 19);
+  box-shadow: 2px 2px 3px rgb(78, 78, 78);
   color: rgb(0, 0, 0);
-  transition: ease-in-out 0.12s;
+  transition: ease-in-out 0.18s;
+}
+
+.btn{
+  box-shadow: none;
 }
 
 #read-more:hover, .btn:hover{
   background-color: rgb(245, 245, 245);
-  box-shadow: 1px 1px 4px rgb(19, 19, 19);
+  box-shadow: 1px 1px 2px rgb(19, 19, 19);
 }
 
 #about-me-text, #project-text{
   text-align: left;
   position: relative;
   align-items: center;
-  font-size: 32px;
+  font-size: 25px;
   padding-right: 125px;
   padding-left: 125px;
   font-weight: 400;
@@ -149,7 +103,7 @@ main {
 }
 
 .header-title{
-  font-size: 100px;
+  font-size: 70px;
 }
 
 .btn {
@@ -175,17 +129,6 @@ main {
   display: block;      
   margin: 0 auto;
   position: relative;
-}
-
-footer {
-  background-color: #fff;
-  color: rgb(0, 0, 0);
-  text-align: center;
-  padding: 35px;
-  position: relative; /* Keep this and remove the conflicting 'position: relative;' */
-  bottom: 0;
-  width: 100%;
-  padding-top: 150px;
 }
 
 #profile-picture{

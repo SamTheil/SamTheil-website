@@ -1,0 +1,83 @@
+/* main.css - Common styles across all pages */
+
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body, html {
+  font-family: Arial, sans-serif;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Header Styles */
+header {
+  background-color: transparent;
+  color: #000;
+  padding: 16px 20px;
+  position: relative;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header nav ul.menu {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+header nav ul.menu li a {
+  color: black;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-weight: 400;
+  font-size: 25px;
+}
+
+footer {
+  background-color: #fff;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 35px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  padding-top: 150px;
+}
+
+/* Style all font awesome icons */
+.fa {
+  margin: 30px 5px 5px 5px;
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Add a hover effect if you want */
+.fa:hover {
+  opacity: 0.7;
+}
+
+/* Set a specific color for each brand */
+
+/* Facebook */
+.fa-linkedin, .fa-github, .fa-youtube {
+  color: black;
+  scale: 120%;
+}
