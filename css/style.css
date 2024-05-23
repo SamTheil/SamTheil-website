@@ -1,0 +1,195 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body, html {
+  font-family: Arial, sans-serif;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+header {
+  background-color: rgba(0,0,0,0);
+  color: #000;
+  padding: 16px 20px;
+  position: relative;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header nav ul.menu {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;;
+}
+
+a {
+  font-size: 25px;
+}
+
+header nav ul.menu li a {
+  color: black; /* Black text for the links */
+  text-decoration: none;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 20px;
+  font-weight: 400;
+}
+
+main {
+  padding: 0px;
+  text-align: center;
+  position: relative;
+}
+
+.header-content {
+  position: absolute;
+  top: 50%;  /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-34%, -55%); /* Adjust the centering to be exact */
+  color: white; /* Ensure text is visible, assuming image is darker */
+  text-align: left; /* Center the text within the block */
+  width: 100%; /* Optional: may specify a specific width */
+}
+
+.header-subtitle{
+  font-size: 40px;
+  font-weight: 200;
+}
+
+.header-mono{
+  font-size: 35px;
+  font-weight: 200;
+  font-weight: 100;
+  margin-bottom: 20px;
+}
+
+#about-me, #recent-project{
+  height: 700px;  /* Adjust height as necessary */
+  display: flex;  /* Enables flexbox */
+  justify-content: center;  /* Centers the children horizontally */
+  align-items: center;  /* Aligns the children vertically to the middle */
+  padding: 0px;  /* Add some padding around */
+}
+
+#recent-project{
+  background-color: rgb(255, 255, 255);
+}
+
+#recent-project-picture{
+  object-fit: cover;
+  display: block;      
+  margin: 0 auto;
+  position: relative;
+  height: 700px;
+  border-radius: 30px 0px 0px 30px;
+}
+
+#recent-project-title, #about-me-title{
+  text-align: left;
+  position: relative;
+  align-items: center;
+  font-size: 52px;
+  padding-right: 125px;
+  padding-left: 125px;
+  padding-bottom: 40px;
+  font-weight: 600;
+}
+
+#read-more-div{
+  position: relative;
+  align-items: center;
+  text-align: center;
+}
+
+#read-more, .btn{
+  padding: 10px 30px 10px 30px;
+  font-size: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  border: none;
+  box-shadow: 2px 2px 5px rgb(19, 19, 19);
+  color: rgb(0, 0, 0);
+  transition: ease-in-out 0.12s;
+}
+
+#read-more:hover, .btn:hover{
+  background-color: rgb(245, 245, 245);
+  box-shadow: 1px 1px 4px rgb(19, 19, 19);
+}
+
+#about-me-text, #project-text{
+  text-align: left;
+  position: relative;
+  align-items: center;
+  font-size: 32px;
+  padding-right: 125px;
+  padding-left: 125px;
+  font-weight: 400;
+}
+
+#project-text{
+  padding-bottom: 50px;
+}
+
+.header-title{
+  font-size: 100px;
+}
+
+.btn {
+  padding: 10px 20px;
+  margin-top: 8px;
+  font-weight: 400;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: ease-in-out 0.15s;
+}
+
+.btn:hover{
+  background-color: #cfcfcf;
+}
+
+#banner_image {
+  width: 100vw;
+  height: 800px;
+  object-fit: cover;
+  display: block;      
+  margin: 0 auto;
+  position: relative;
+}
+
+footer {
+  background-color: #fff;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 35px;
+  position: relative; /* Keep this and remove the conflicting 'position: relative;' */
+  bottom: 0;
+  width: 100%;
+  padding-top: 150px;
+}
+
+#profile-picture{
+  border-radius: 50%;
+  scale: 50%;
+  margin: 0px;
+}
