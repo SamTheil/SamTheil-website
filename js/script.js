@@ -1,11 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
   var header = document.getElementById("header");
-
   if (header) {
       header.innerHTML = `
-      <head>
-        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400&display=swap" rel="stylesheet">
-      </head>    
+      <button class="hamburger" aria-label="Open navigation menu">&#9776;</button>
       <nav>
           <ul class="menu">
               <li><a href="index.html">Home</a></li>
@@ -15,4 +12,18 @@ document.addEventListener("DOMContentLoaded", function() {
           </ul>
       </nav>`;
   }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  var hamburger = document.querySelector('.hamburger');
+  var menu = document.querySelector('nav ul');
+
+  hamburger.addEventListener('click', function() {
+    // Toggle menu visibility
+    if (menu.style.right === "0px") {
+      menu.style.right = "-100%"; // Hide menu
+    } else {
+      menu.style.right = "0px"; // Show menu
+    }
+  });
 });

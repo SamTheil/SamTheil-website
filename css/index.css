@@ -33,6 +33,8 @@ main {
   align-items: center;  /* Aligns the children vertically to the middle */
   padding: 0px;  /* Add some padding around */
   color: rgb(48, 48, 48);
+  position: relative;
+  z-index: 1000;
 }
 
 #recent-project{
@@ -89,6 +91,7 @@ main {
 #about-me-text, #project-text{
   text-align: left;
   position: relative;
+  z-index: 1000;
   align-items: center;
   font-size: 25px;
   padding-right: 125px;
@@ -137,4 +140,101 @@ main {
   border-radius: 50%;
   scale: 50%;
   margin: 0px;
+}
+
+@media (max-width: 1068px) {
+  #about-me, #recent-project {
+      flex-direction: column; /* Stack the elements vertically */
+      padding: 20px; /* Reduce padding on smaller screens */
+      position: relative;
+  }
+
+  #recent-project{
+    padding-top: 70px;
+    position: relative;
+  }
+
+  #about-me div, #recent-project div {
+      width: 100%; /* Full width for child divs */
+      position: relative;
+  }
+}
+
+@media (max-width: 1068px) {
+  #about-me-title, #recent-project-title {
+      font-size: 36px; /* Smaller font size for titles */
+      padding: 10px 0; /* Adjust padding */
+      position: relative;
+  }
+
+  #about-me-text, #project-text {
+      font-size: 18px; /* Smaller font size for content text */
+      padding: 0 10px; /* Adjust text padding */
+      margin-top: 20px;
+      position: relative;
+  }
+
+  #recent-project{
+    height: auto;
+  }
+
+  .header-content {
+    position: absolute;
+    top: 50%;  /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust the centering to be exact */
+    color: white; /* Ensure text is visible, assuming image is darker */
+    text-align: center; /* Center the text within the block */
+    width: 100%; /* Optional: may specify a specific width */
+  }
+
+  #banner_image{
+    height: 800px;
+  }
+}
+
+@media (max-width: 1068px) {
+  #profile-picture, #recent-project-picture {
+      position: relative;
+      top: 0;
+  }
+
+  #profile-picture{
+    margin-top: 40px;
+  }
+
+  #recent-project-picture{
+    border-radius: 20px;
+    width: 90%;
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  #read-more, .btn {
+      font-size: 18px; /* Increase font size for readability */
+      padding: 15px 30px; /* Larger buttons for easier tapping */
+      margin: 10px auto; /* Center buttons and add margin */
+      display: block; /* Ensure buttons are block level to center properly */
+  }
+
+  #read-more{
+    margin-top: 20px;
+  }
+
+  #profile-picture-div {
+    display: flex;  /* This will use flexbox to help with alignment */
+    justify-content: center;  /* Center horizontally */
+    align-items: center;  /* Center vertically */
+    height: 400px;  /* Set a height; adjust as needed */
+    position: relative;
+    width: 100%; /* Adjust width as necessary, or set to fit content */
+  }
+  
+  #profile-picture {
+    border-radius: 50%;
+    width: 650px; /* Adjust based on the size you want */
+    height: 650px; /* Keep the height the same as width for a circle */
+    object-fit: cover; /* Ensures the image covers the space without stretching */
+  }
 }

@@ -39,14 +39,29 @@
             width: 100%;
             margin-top: 300px;
         }
+
+        @media (max-width: 1068px){
+            #icons {
+                flex-direction: column; /* Stack icons vertically */
+                align-items: center; /* Center-align items vertically */
+            }
+
+            .fa-linkedin, .fa-github, .fa-youtube {
+                padding-left: 0;
+                padding-right: 0;
+                margin: 10px; /* Reduce margin for a tighter layout */
+                margin-top: 20px;
+                margin-bottom: 80px;
+            }
+        }
     </style>
 </head>
 <body>
     <header id="header"></header>
     <div id="icons">
-    <a href="https://www.linkedin.com/in/sam-theil-744b81272" class="fa fa-linkedin"></a>
-    <a href="https://github.com/SamTheil" class="fa fa-github"></a>
-    <a href="https://www.youtube.com/channel/UC8vtQfUpN14mjsm9kRMp_ZQ" class="fa fa-youtube"></a>
+        <a href="https://www.linkedin.com/in/sam-theil-744b81272" class="fa fa-linkedin"></a>
+        <a href="https://github.com/SamTheil" class="fa fa-github"></a>
+        <a href="https://www.youtube.com/channel/UC8vtQfUpN14mjsm9kRMp_ZQ" class="fa fa-youtube"></a>
     </div>
     <footer>
         <div id="blank"></div>

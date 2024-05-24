@@ -95,3 +95,40 @@ footer {
   scale: 120%;
   border-bottom: none;
 }
+
+/* Hamburger Menu Button */
+.hamburger {
+  display: none; /* Hidden by default */
+  font-size: 30px; /* Icon size */
+  background: none;
+  border: none;
+  color: rgb(0, 0, 0); /* Icon color */
+  cursor: pointer;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* Show hamburger icon on mobile */
+    position: absolute;
+    right: 25px; /* Positioning */
+    top: 20px;
+  }
+
+  nav ul {
+    display: block; /* Change to block to enable transition */
+    flex-direction: column; /* Stack menu items vertically */
+    position: absolute;
+    padding-left: 5px;
+    padding-right: 5px;
+    top: 70px;
+    right: -100%; /* Start offscreen to the right */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+    transition: right 0.3s; /* Smooth slide-in effect */
+  }
+
+  nav ul.menu li {
+    text-align: center; /* Center align the links */
+    padding: 15px; /* Larger tap targets */
+  }
+}

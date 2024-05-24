@@ -139,3 +139,82 @@ main {
   object-fit: cover;
   margin: 0px;
 }
+
+@media (max-width: 1068px) {
+  #about-me{
+    flex-direction: column;
+    padding: 20px;  /* Added padding for better spacing */
+  }
+
+  #recent-project-title, #about-me-title{
+    text-align: center; /* Centered text for better alignment */
+    font-size: 32px; /* Smaller font size for smaller screens */
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-bottom: 20px;
+  }
+
+  #about-me-title{
+    margin-left: 0; /* Removed the left margin for better centering */
+    margin-top: 20px; /* Reduced margin-top for better spacing */
+  }
+
+  #profile-picture{
+    border-radius: 25px;
+    width: 100%; /* Make width responsive */
+    max-width: 400px; /* Limit maximum size */
+    height: auto; /* Maintain aspect ratio */
+    position: relative;
+    margin: 0 auto; /* Centering the image */
+  }
+
+  #about-me-text, #project-text{
+    font-size: 18px; /* Smaller font size for readability on small devices */
+  }
+}
+
+#about-me-div {
+  display: flex; /* Ensures flex properties are applied */
+  flex-direction: column; /* Stacks the children vertically */
+  align-items: center; /* Aligns items to the center horizontally */
+}
+
+  @media (max-width: 1068px) {
+  #about-me{
+    flex-direction: column;
+    padding: 0px;  /* Added padding for better spacing */
+    margin-top: 40px;
+  }
+
+  #recent-project-title, #about-me-title{
+    text-align: center; /* Centered text for better alignment */
+    font-size: 32px; /* Smaller font size for smaller screens */
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-bottom: 20px;
+  }
+
+  #about-me-title{
+    margin-left: 0; /* Removed the left margin for better centering */
+    margin-top: 40px; /* Reduced margin-top for better spacing */
+  }
+
+  #profile-picture{
+    border-radius: 25px;
+    width: 100%; /* Make width responsive */
+    max-width: 400px; /* Limit maximum size */
+    height: auto; /* Maintain aspect ratio */
+    position: relative;
+    margin: 0 auto; /* Centering the image */
+  }
+
+  #about-me-text, #project-text{
+    font-size: 20px; /* Smaller font size for readability on small devices */
+  }
+}
+
+#about-me-div {
+  display: flex; /* Ensures flex properties are applied */
+  flex-direction: column; /* Stacks the children vertically */
+  align-items: center; /* Aligns items to the center horizontally */
+}
