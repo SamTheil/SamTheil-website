@@ -1,0 +1,107 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.project-link {
+  text-decoration: none;
+  color: inherit; /* Ensures text color isn't changed by the link */
+  display: block; /* Ensures the link is a block element, fitting its content */
+  border-bottom: none;
+}
+
+#project1{
+  margin-top: 150px;
+}
+
+.project {
+  width: 80%; /* Adjust this to make the box narrower */
+  max-width: 1200px; /* Maximum width */
+  margin: 20px auto;
+  background-color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s; /* Smooth transition for background color */
+  overflow: hidden; /* Ensures no overflow from any child element */
+  cursor: pointer;
+  outline-offset: 4px;
+}
+
+.project:hover {
+  background-color: #e4e4e4; /* Light grey color on hover, apply directly to project */
+}
+
+.project-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; /* Ensures content uses all available space */
+  height: 100%; /* Ensure the content fills the project div */
+  margin: 0; /* Removes any margin */
+}
+
+.project-text {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box; /* Includes padding in the width calculation */
+}
+
+.project-image {
+  flex: 1;
+  margin: 0;
+  background-size: cover; /* Cover ensures the image covers the entire div */
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  border-radius: 0 10px 10px 0; /* Rounds the right side corners */
+  min-height: 300px; /* Ensures that the div has a minimum height */
+  transition: opacity 0.3s; /* Smooth transition for opacity */
+}
+
+.project:hover .project-image {
+  opacity: 0.8; /* Slightly reduces opacity on hover */
+}
+
+.project-image img {
+  width: 100%; /* Ensures image fills its container */
+  height: auto; /* Maintains aspect ratio */
+  display: block; /* Removes any default image spacing */
+  border-radius: 0 10px 10px 0; /* Rounds the right side corners */
+}
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 50%;
+}
+
+#project2-img{
+  scale: 130%;
+  transform: rotate(-15deg);
+}
+
+#project4-img{
+  scale: 50%;
+}
+
+.fa:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 1068px){
+  .project-text{
+    font-size: 14px;
+  }
+
+  h1{
+    font-size: 20px;
+  }
+}
