@@ -1,0 +1,141 @@
+main {
+  padding: 0px;
+  text-align: center;
+  position: relative;
+}
+
+.header-content {
+  position: absolute;
+  top: 50%;  /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-34%, -55%); /* Adjust the centering to be exact */
+  color: white; /* Ensure text is visible, assuming image is darker */
+  text-align: left; /* Center the text within the block */
+  width: 100%; /* Optional: may specify a specific width */
+}
+
+.header-subtitle{
+  font-size: 40px;
+  font-weight: 200;
+}
+
+.header-mono{
+  font-size: 35px;
+  font-weight: 200;
+  font-weight: 100;
+  margin-bottom: 20px;
+}
+
+#about-me, #recent-project{
+  height: 600px;  /* Adjust height as necessary */
+  display: flex;  /* Enables flexbox */
+  justify-content: center;  /* Centers the children horizontally */
+  align-items: center;  /* Aligns the children vertically to the middle */
+  padding: 0px;  /* Add some padding around */
+  color: rgb(48, 48, 48);
+}
+
+#recent-project{
+  background-color: rgb(255, 255, 255);
+}
+
+#recent-project-picture{
+  object-fit: cover;
+  display: block;      
+  margin: 0 auto;
+  position: relative;
+  height: 600px;
+  border-radius: 30px 0px 0px 30px;
+}
+
+#recent-project-title, #about-me-title{
+  text-align: left;
+  position: relative;
+  align-items: center;
+  font-size: 52px;
+  padding-right: 125px;
+  padding-left: 125px;
+  padding-bottom: 40px;
+  font-weight: 600;
+}
+
+#read-more-div{
+  position: relative;
+  align-items: center;
+  text-align: center;
+}
+
+#read-more, .btn{
+  padding: 10px 30px 10px 30px;
+  font-size: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  border: none;
+  box-shadow: 2px 2px 3px rgb(78, 78, 78);
+  color: rgb(48, 48, 48);
+  transition: ease-in-out 0.18s;
+}
+
+.btn{
+  box-shadow: none;
+  color: rgb(48, 48, 48);
+}
+
+#read-more:hover, .btn:hover{
+  background-color: rgb(245, 245, 245);
+  box-shadow: 1px 1px 2px rgb(19, 19, 19);
+}
+
+#about-me-text, #project-text{
+  text-align: left;
+  position: relative;
+  align-items: center;
+  font-size: 25px;
+  padding-right: 125px;
+  padding-left: 125px;
+  font-weight: 400;
+  color: rgb(48, 48, 48);
+}
+
+#project-text{
+  color: rgb(48, 48, 48);
+  padding-bottom: 50px;
+}
+
+.header-title{
+  font-size: 70px;
+}
+
+.btn {
+  padding: 10px 20px;
+  margin-top: 8px;
+  font-weight: 400;
+  background-color: #ffffff;
+  color: rgb(48, 48, 48);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: ease-in-out 0.15s;
+}
+
+.btn:hover{
+  background-color: #cfcfcf;
+}
+
+#banner_image {
+  background-color: rgb(48, 48, 48);
+  opacity: 98%;
+  width: 100vw;
+  height: 920px;
+  object-fit: cover;
+  display: block;      
+  margin: 0 auto; 
+  position: relative;
+}
+
+#profile-picture{
+  border-radius: 0px 25px 25px 0px;
+  height: 500px;
+  object-fit: cover;
+  margin: 0px;
+}
