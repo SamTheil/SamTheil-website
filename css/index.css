@@ -1,7 +1,3 @@
-a {
-  font-size: 25px;
-}
-
 main {
   padding: 0px;
   text-align: center;
@@ -36,6 +32,7 @@ main {
   justify-content: center;  /* Centers the children horizontally */
   align-items: center;  /* Aligns the children vertically to the middle */
   padding: 0px;  /* Add some padding around */
+  color: rgb(48, 48, 48);
 }
 
 #recent-project{
@@ -75,12 +72,13 @@ main {
   border-radius: 8px;
   border: none;
   box-shadow: 2px 2px 3px rgb(78, 78, 78);
-  color: rgb(0, 0, 0);
+  color: rgb(48, 48, 48);
   transition: ease-in-out 0.18s;
 }
 
 .btn{
   box-shadow: none;
+  color: rgb(48, 48, 48);
 }
 
 #read-more:hover, .btn:hover{
@@ -96,9 +94,11 @@ main {
   padding-right: 125px;
   padding-left: 125px;
   font-weight: 400;
+  color: rgb(48, 48, 48);
 }
 
 #project-text{
+  color: rgb(48, 48, 48);
   padding-bottom: 50px;
 }
 
@@ -111,7 +111,7 @@ main {
   margin-top: 8px;
   font-weight: 400;
   background-color: #ffffff;
-  color: rgb(0, 0, 0);
+  color: rgb(48, 48, 48);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -123,8 +123,10 @@ main {
 }
 
 #banner_image {
+  background-color: rgb(48, 48, 48);
+  opacity: 98%;
   width: 100vw;
-  height: 800px;
+  height: 920px;
   object-fit: cover;
   display: block;      
   margin: 0 auto;

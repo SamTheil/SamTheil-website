@@ -25,23 +25,36 @@ body::-webkit-scrollbar {
 /* Header Styles */
 header {
   background-color: transparent;
-  color: #000;
+  color: white;
   padding: 16px 20px;
-  position: relative;
+  position: absolute;
   width: 100%;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  margin-right: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(48, 48, 48);
+  font-weight: 600;
+  transition: ease-in-out 0.15s;
+  border-bottom: 2.5px solid rgb(48, 48, 48);
+  padding-bottom: 4px;
+}
+
+a:hover{
+  color: rgb(73, 73, 73);
 }
 
 header nav ul.menu {
   list-style: none;
   display: flex;
-  justify-content: center;
+  justify-content: right;
 }
 
-header nav ul.menu li a {
-  color: black;
+nav ul.menu li {
+  color: rgb(48, 48, 48);
   text-decoration: none;
   padding: 10px 20px;
   font-weight: 400;
@@ -50,7 +63,7 @@ header nav ul.menu li a {
 
 footer {
   background-color: #fff;
-  color: rgb(0, 0, 0);
+  color: rgb(48, 48, 48);
   text-align: center;
   padding: 35px;
   position: relative;
@@ -78,6 +91,7 @@ footer {
 
 /* Facebook */
 .fa-linkedin, .fa-github, .fa-youtube {
-  color: black;
+  color: rgb(48, 48, 48);
   scale: 120%;
+  border-bottom: none;
 }
