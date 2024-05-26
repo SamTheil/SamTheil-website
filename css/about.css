@@ -135,9 +135,15 @@ main {
 
 #profile-picture{
   border-radius: 0px 25px 25px 0px;
-  height: 500px;
+  height: 30vw;
+  max-height: 500px;
   object-fit: cover;
   margin: 0px;
+}
+
+#spacer{
+  height: 100px;
+  position: relative;
 }
 
 @media (max-width: 1068px) {
@@ -161,7 +167,6 @@ main {
 
   #profile-picture{
     border-radius: 25px;
-    width: 100%; /* Make width responsive */
     max-width: 400px; /* Limit maximum size */
     height: auto; /* Maintain aspect ratio */
     position: relative;
@@ -173,7 +178,7 @@ main {
   }
 }
 
-#about-me-div {
+  #about-me-div {
   display: flex; /* Ensures flex properties are applied */
   flex-direction: column; /* Stacks the children vertically */
   align-items: center; /* Aligns items to the center horizontally */
@@ -183,7 +188,7 @@ main {
   #about-me{
     flex-direction: column;
     padding: 0px;  /* Added padding for better spacing */
-    margin-top: 40px;
+    height: fit-content;
   }
 
   #recent-project-title, #about-me-title{
@@ -201,15 +206,25 @@ main {
 
   #profile-picture{
     border-radius: 25px;
-    width: 100%; /* Make width responsive */
-    max-width: 400px; /* Limit maximum size */
+    width: 90%; /* Make width responsive */
+    max-width: 500px; /* Limit maximum size */
     height: auto; /* Maintain aspect ratio */
     position: relative;
     margin: 0 auto; /* Centering the image */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  #about-me-text, #project-text{
+  #about-me-text{
     font-size: 20px; /* Smaller font size for readability on small devices */
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  #profile-picture-div{
+    flex-direction: column;
+    position: relative;
   }
 }
 

@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Form</title>
-    <link rel="icon" href="assets/index/profile.jpg">
+    <link rel="icon" href="assets/img/profile.jpg">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .fa-linkedin, .fa-github, .fa-youtube {
             color: rgb(48, 48, 48);
-            scale: 420%;
-            padding-left: 20px;
-            padding-right: 20px;
-            margin: 60px;
+            font-size: 4vw; /* Use font-size instead of scale for more predictable sizing */
+            padding: 0px; /* Unified padding */
+            margin: 20px 0; /* Adjusted margin */
+            margin: 5vw;
             border-bottom: none;
+            display: inline-block; /* Ensures padding and margins are contained */
         }
 
         body, html {
@@ -44,14 +45,13 @@
             #icons {
                 flex-direction: column; /* Stack icons vertically */
                 align-items: center; /* Center-align items vertically */
+                padding: 0px;
             }
 
             .fa-linkedin, .fa-github, .fa-youtube {
-                padding-left: 0;
-                padding-right: 0;
-                margin: 10px; /* Reduce margin for a tighter layout */
-                margin-top: 20px;
-                margin-bottom: 80px;
+                padding: 0px; /* Reduced padding */
+                font-size: 10vw;
+                margin: 6vw 0; /* Adjust top and bottom margins, remove side margins */
             }
         }
     </style>

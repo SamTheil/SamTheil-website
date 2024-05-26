@@ -9,6 +9,7 @@ body, html {
   color: inherit; /* Ensures text color isn't changed by the link */
   display: block; /* Ensures the link is a block element, fitting its content */
   border-bottom: none;
+  height: auto;
 }
 
 #project1{
@@ -98,10 +99,39 @@ body, html {
 
 @media (max-width: 1068px){
   .project-text{
-    font-size: 14px;
+    font-size: 12px;
   }
 
   h1{
-    font-size: 20px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-content {
+      flex-direction: column; /* Changes layout to column */
+  }
+
+  .project-image {
+      order: -1; /* Moves the image above the text */
+      width: 100%; /* Adjusts width to fill the container */
+      min-height: 200px; /* Adjusts minimum height */
+      border-radius: 10px 10px 0 0; /* Adjusts border radius for a vertical layout */
+  }
+
+  .project-text {
+      order: 1; /* Ensures text comes after image */
+      padding: 20px;
+      text-align: center; /* Optionally center the text for better aesthetics */
+  }
+}
+
+@media (max-width: 1068px) {
+  .project-text {
+      font-size: 12px; /* This already exists, adjust as needed */
+  }
+
+  h1 {
+      font-size: 18px; /* This already exists, adjust as needed */
   }
 }
