@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .fa-linkedin, .fa-github, .fa-youtube {
+        .fa {
             color: rgb(48, 48, 48);
-            font-size: 4vw; /* Use font-size instead of scale for more predictable sizing */
-            padding: 0px; /* Unified padding */
-            margin: 20px 0; /* Adjusted margin */
-            margin: 5vw;
-            border-bottom: none;
-            display: inline-block; /* Ensures padding and margins are contained */
+            font-size: 4vw; /* Responsive size based on view width */
+            margin: 5vw; /* Consistent spacing */
+            display: inline-block; /* Ensures proper alignment and spacing */
+            text-decoration: none; /* Removes any underline */
+            padding: 10px; /* Ensures clickable area */
+            box-sizing: border-box; /* Includes padding in width and height */
         }
 
         body, html {
@@ -24,34 +24,30 @@
             margin: 0;
             display: flex;
             flex-direction: column;
+            justify-content: center; /* Center content vertically */
         }
 
         footer {
-            margin-top: auto; /* Push the footer to the bottom of the screen */
             width: 100%;
-            position: fixed;
-            bottom: 0;
+            padding: 10px 0; /* Added padding to avoid cut-off at bottom */
         }
-        #icons{
+
+        #icons {
             display: flex;
-            position: fixed;
-            align-items: center;
             justify-content: center;
-            width: 100%;
-            margin-top: 300px;
+            margin: auto; /* Centers vertically in the available space */
+            padding: 20px 0; /* Added padding to avoid cut-off */
         }
 
         @media (max-width: 1068px){
             #icons {
                 flex-direction: column; /* Stack icons vertically */
                 align-items: center; /* Center-align items vertically */
-                padding: 0px;
             }
 
-            .fa-linkedin, .fa-github, .fa-youtube {
-                padding: 0px; /* Reduced padding */
-                font-size: 10vw;
-                margin: 6vw 0; /* Adjust top and bottom margins, remove side margins */
+            .fa {
+                font-size: 10vw; /* Larger size for smaller screens */
+                margin: 3vw 0; /* Adjusted margins */
             }
         }
     </style>
