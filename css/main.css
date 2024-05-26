@@ -46,12 +46,13 @@ a {
   color: rgb(48, 48, 48);
   font-weight: 600;
   transition: ease-in-out 0.15s;
-  border-bottom: 2.5px solid rgb(48, 48, 48);
+  border-bottom: 3px solid rgb(48, 48, 48);
   padding-bottom: 4px;
 }
 
 a:hover{
   color: rgb(99, 99, 99);
+  padding-bottom: 2.5px;
 }
 
 header nav ul.menu {

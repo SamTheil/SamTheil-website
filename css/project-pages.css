@@ -1,0 +1,56 @@
+/* General content block styling */
+.content-block {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  transition: box-shadow 0.3s ease;
+}
+
+.content-block:hover {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.content-title {
+  margin-top: 0;
+  font-size: 40px;
+}
+
+/* Responsive image styling */
+.responsive-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Flexbox for grouping content blocks */
+.block-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.content-block {
+  flex: 1 1 45%; /* Allows blocks to grow and shrink but basis at 45% */
+  margin: 10px;
+}
+
+/* Ensure .content is responsive */
+.content {
+  max-width: 1300px;
+  margin: auto;
+  padding: 120px 20px 20px 20px;
+}
+
+/* Responsive settings for mobile */
+@media (max-width: 768px) {
+  .block-group {
+    flex-direction: column;
+  }
+
+  .content-block {
+    flex: 1 1 100%; /* Blocks take full width on small screens */
+    padding: 10px;
+  }
+}
