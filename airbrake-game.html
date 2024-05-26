@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/airbrake-simulation-game/rocket.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Rocket Flight Simulation Game</title>
+    <style>
+      body, html { 
+          margin: 0; 
+          padding: 0; 
+          height: 100%; 
+          overflow: hidden; 
+          background-color: #ffffff;
+          background-size: cover; 
+          background-position: center; 
+      }
+      .blurred-background {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('assets/airbrake-simulation-game/graph.png') no-repeat center center;
+            background-size: cover;
+            filter: blur(4px);
+            z-index: 0;
+        }
+      #chart {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          width: 400px;
+          height: 200px;
+          z-index: 1000;
+      }
+      #countdown {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 100px;
+          font-family: Arial, Helvetica, sans-serif;
+          font-weight: bold;
+          color: rgb(14, 14, 14);
+          z-index: 1010;
+      }
+      #gameRules {
+          position: absolute;
+          top: 180px;
+          left: 50%;
+          width: 60%;
+          transform: translate(-50%, -50%);
+          text-align: center;
+          font-family: 'Arial', sans-serif;
+          color: #000;
+          font-size: 16px;
+          z-index: 1000;
+      }
+      #buttons {
+          position: absolute;
+          top: 300px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 1000;
+      }
+      button {
+          margin-right: 10px;
+          transition: opacity 0.3s;
+          background-color: rgb(228, 228, 228);
+          border-color: transparent;
+          border-radius: 4px;
+          padding: 5px 20px 5px 20px;
+          box-shadow: 2px 2px rgb(109, 109, 109);
+          font-size: 30px;
+          font-family: Arial, Helvetica, sans-serif;
+          font-weight: 400;
+      }
+      button:hover{
+        transition: 0.1s;
+        box-shadow: 1px 1px;
+        opacity: 75%;
+      }
+      p, h2{
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      input{
+        margin: 6px;
+      }
+
+    </style>
+</head>
+<body>
+    <header id="header"></header>
+    <div class="blurred-background"></div>
+    <canvas id="chart"></canvas>
+    <div id="countdown"></div>
+    <div id="gameRules">
+        <p>Welcome to the Rocket Flight Simulation Game! Here are the rules:</p>
+        <p>Your goal is to adjust the airbrakes to achieve the target altitude of 800 feet. Use the 'Practice' button to start a simulation run. Adjust the airbrakes using the up and down arrow keys during the flight. Try to match your final altitude to the target as closely as possible.</p>
+        <p>When you feel ready, use the 'Qualify' button to make your final attempt and get your name on the leaderboard</p>
+    </div>
+    <div id="buttons">
+        <button id="practiceButton">Practice</button>
+        <button id="qualifyButton">Qualify</button>
+        <button id="leaderboardButton">Leaderboard</button>
+    </div>
+    <div id="endGameModal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1500; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+        <p id="scoreDisplay" style="font-size: 24px; text-align: center;"></p>
+        <button id="resetButton" style="display: block; margin: 20px auto; padding: 10px 20px;">Reset Game</button>
+    </div>
+    <!-- Qualification Form -->
+    <div id="qualificationForm" style="display:none; position: fixed; left: 50%; top: 40%; transform: translate(-50%, -50%); z-index: 1500; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+        <form id="qualifyForm">
+            <input type="text" id="firstName" placeholder="First Name" required>
+            <input type="text" id="lastName" placeholder="Last Name" required>
+            <button type="submit">Start Qualifying</button>
+        </form>
+    </div>
+    <div id="leaderboard" style="display:none; position: fixed; left: 50%; top: 50%; width: 80%; height: 70%; transform: translate(-50%, -50%); overflow-y: scroll; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+        <h2>Leaderboard</h2>
+        <div id="leaderboardEntries" style="margin-top: 20px;">
+        </div>
+        <button onclick="window.location.reload();" style="display: block; margin: 20px auto; padding: 10px 20px;">Close</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/airbrake-game.js"></script>
+    <script>
+        window.onload = function() {
+          document.querySelector('.blurred-background').style.opacity = 1;
+        };
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

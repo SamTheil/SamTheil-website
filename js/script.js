@@ -17,13 +17,19 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
   var hamburger = document.querySelector('.hamburger');
   var menu = document.querySelector('nav ul');
+  var body = document.body;
 
   hamburger.addEventListener('click', function() {
-    // Toggle menu visibility
+    // Toggle menu visibility and fix body position
     if (menu.style.right === "0px") {
       menu.style.right = "-100%"; // Hide menu
+      body.style.position = 'relative'; // Allow body to scroll
+      body.style.overflow = 'visible'; // Make overflow visible
     } else {
       menu.style.right = "0px"; // Show menu
+      body.style.position = 'fixed'; // Fix body position
+      body.style.overflow = 'hidden'; // Hide overflow to disable scrolling
+      body.style.width = '100%'; // Ensure body width is not affected by position change
     }
   });
 });

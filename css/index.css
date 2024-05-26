@@ -41,13 +41,22 @@ main {
   background-color: rgb(255, 255, 255);
 }
 
-#recent-project-picture{
-  object-fit: cover;
-  display: block;      
-  margin: 0 auto;
-  position: relative;
-  height: 600px;
-  border-radius: 30px 0px 0px 30px;
+#recent-project-picture {
+  object-fit: contain;
+  width: 60vw; /* Adjust this value based on your design needs */
+  max-width: 800px; /* Adjust max width to prevent it from becoming too large */
+  height: auto; /* This maintains the aspect ratio */
+  margin: 0 auto; /* This centers the image horizontally */
+  display: block; /* Ensures that margin auto is effective */
+  border-radius: 30px;
+}
+
+#recent-project-picture-div {
+  text-align: center; /* Center the content of the div */
+  display: flex; /* Use flexbox for better centering control */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 100%; /* Ensure the div takes full width */
 }
 
 #recent-project-title, #about-me-title{
@@ -59,6 +68,12 @@ main {
   padding-left: 125px;
   padding-bottom: 40px;
   font-weight: 600;
+}
+
+#recent-project-title{
+  padding-left: 120px;
+  padding-right: 270px;
+  margin-left: 0px;
 }
 
 #read-more-div{
@@ -136,13 +151,57 @@ main {
   position: relative;
 }
 
-#profile-picture{
+#profile-picture-div {
+  display: flex;  /* Flexbox for alignment */
+  justify-content: center;  /* Center horizontally */
+  align-items: center;  /* Center vertically */
+  position: relative;
+  width: 100%; /* Full width to accommodate larger image sizes */
+  overflow: hidden; /* Prevent any overflow from the div */
+  min-height: 300px; /* Set a minimum height to ensure visibility */
+}
+
+#profile-picture {
   border-radius: 50%;
-  scale: 50%;
-  margin: 0px;
+  width: 100%; /* Increase from 20vw to 25vw for more significant scaling */
+  max-width: 450px; /* Increase max-width for larger displays */
+  min-width: 200px; /* Adjust minimum width for consistency */
+  object-fit: cover;
+  height: auto; /* Maintain aspect ratio */
+}
+
+#recent-project-desc {
+  display: flex;
+  flex-direction: column;  /* Stack elements vertically */
+  align-items: center;  /* Center elements horizontally */
+  text-align: center;  /* Center text inside the container */
+}
+
+#read-more {
+  position: static;  /* Default positioning */
+  margin-top: 20px;  /* Optional: add some space between the text and the button */
 }
 
 @media (max-width: 1068px) {
+  body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+    overflow: hidden;
+  }
+
+  #recent-project-desc {
+    /* Adjust styling for larger screens */
+    padding: 0px;
+    max-width: 800px;  /* Set a max-width if the text looks too stretched */
+  }
+
+  .header-mono{
+    width: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: center;
+  }
+
   #about-me, #recent-project {
       flex-direction: column; /* Stack the elements vertically */
       padding: 20px; /* Reduce padding on smaller screens */
@@ -150,27 +209,33 @@ main {
   }
 
   #recent-project{
-    padding-top: 70px;
+    padding-top: 0px;
     position: relative;
   }
 
   #about-me div, #recent-project div {
       width: 100%; /* Full width for child divs */
       position: relative;
+      height: fit-content;
   }
-}
 
-@media (max-width: 1068px) {
+  #about-me{
+    margin-bottom: 20px;
+  }
+
   #about-me-title, #recent-project-title {
       font-size: 36px; /* Smaller font size for titles */
-      padding: 10px 0; /* Adjust padding */
+      padding: 5px 0; /* Adjust padding */
       position: relative;
+      text-align: center;
   }
 
   #about-me-text, #project-text {
       font-size: 18px; /* Smaller font size for content text */
       padding: 0 10px; /* Adjust text padding */
-      margin-top: 20px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      text-align: center;
       position: relative;
   }
 
@@ -191,26 +256,22 @@ main {
   #banner_image{
     height: 800px;
   }
-}
 
-@media (max-width: 1068px) {
-  #profile-picture, #recent-project-picture {
-      position: relative;
-      top: 0;
+  #profile-picture {
+    width: 60vw; /* Adjust relative width for smaller screens */
+    max-width: 700px; /* Adjusted for smaller screens */
   }
 
-  #profile-picture{
-    margin-top: 40px;
+  #recent-project-picture {
+    width: 90vw; /* Increase the width on smaller screens */
+    margin-top: 5vw;
+    max-width: 600px; /* Adjusted max width for smaller screens */
   }
 
-  #recent-project-picture{
-    border-radius: 20px;
-    width: 90%;
-    margin-top: 15px;
+  #recent-project-picture-div{
+    flex-direction: column;
   }
-}
 
-@media (max-width: 768px) {
   #read-more, .btn {
       font-size: 18px; /* Increase font size for readability */
       padding: 15px 30px; /* Larger buttons for easier tapping */
@@ -223,18 +284,16 @@ main {
   }
 
   #profile-picture-div {
-    display: flex;  /* This will use flexbox to help with alignment */
-    justify-content: center;  /* Center horizontally */
-    align-items: center;  /* Center vertically */
-    height: 400px;  /* Set a height; adjust as needed */
-    position: relative;
-    width: 100%; /* Adjust width as necessary, or set to fit content */
+    margin-top: 0px; /* Increase the top margin to ensure separation from banner */
+    margin-bottom: 20px;
   }
-  
+
   #profile-picture {
-    border-radius: 50%;
-    width: 650px; /* Adjust based on the size you want */
-    height: 650px; /* Keep the height the same as width for a circle */
-    object-fit: cover; /* Ensures the image covers the space without stretching */
+    width: 30vw; /* Increase relative width on smaller screens */
+  }
+
+  #project-text{
+    padding: 0;
+    text-align: center;
   }
 }
