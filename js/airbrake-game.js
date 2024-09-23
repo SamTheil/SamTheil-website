@@ -268,8 +268,8 @@ updateChart(timestamp, altitude, airbrakeAngle) {
 
 const config = {
   type: Phaser.AUTO,
-  width: 0,
-  height: 0,
+  width: window.innerWidth,  // Set appropriate size
+  height: window.innerHeight,
   physics: {
       default: 'arcade',
       arcade: {
@@ -277,7 +277,9 @@ const config = {
           debug: false
       }
   },
-  scene: [RocketGame]
+  scene: [RocketGame],
+  backgroundColor: 'rgba(0, 0, 0, 0)', // Set to transparent
+  transparent: true  // Enable transparency
 };
 
 const game = new Phaser.Game(config);

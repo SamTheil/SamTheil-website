@@ -67,7 +67,7 @@
           top: 300px;
           left: 50%;
           transform: translateX(-50%);
-          z-index: 1000;
+          z-index: 12000;
       }
       button {
           margin-right: 10px;
@@ -132,9 +132,33 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/airbrake-game.js"></script>
     <script>
-        window.onload = function() {
-          document.querySelector('.blurred-background').style.opacity = 1;
-        };
+        document.addEventListener("DOMContentLoaded", function() {
+            window.onload = function() {
+                document.querySelector('.blurred-background').style.opacity = 1;
+            };
+    
+            // Ensure your event listeners are set after the DOM is ready
+            const practiceButton = document.getElementById('practiceButton');
+            const qualifyButton = document.getElementById('qualifyButton');
+            const leaderboardButton = document.getElementById('leaderboardButton');
+    
+            if (practiceButton && qualifyButton && leaderboardButton) {
+                practiceButton.addEventListener('click', function() {
+                    // start simulation logic
+                    console.log('Practice button clicked');
+                });
+    
+                qualifyButton.addEventListener('click', function() {
+                    // show qualification form
+                    console.log('Qualify button clicked');
+                });
+    
+                leaderboardButton.addEventListener('click', function() {
+                    // show leaderboard
+                    console.log('Leaderboard button clicked');
+                });
+            }
+        });
     </script>
     <script src="js/script.js"></script>
 </body>
