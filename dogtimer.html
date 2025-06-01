@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Yellow → Blue Timer Screen</title>
+<title>Yellow → Blue Timer Screen (v2)</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
     html,body{
@@ -11,16 +11,15 @@
         height:100%;
         overflow:hidden;
         background:#ffff00;      /* default yellow */
-        touch-action:none;       /* avoid accidental pinch-zoom exiting FS */
+        touch-action:none;
     }
-    /* the blue overlay that grows from the right */
     #blue{
         position:fixed;
         top:0; right:0; bottom:0;
-        width:0;                 /* JS expands this from 0 % to 100 % */
+        width:0;
         background:#0000ff;
         pointer-events:none;
-        transition:width 1s linear; /* smooth 1-second refresh */
+        transition:width 1s linear;
     }
 </style>
 </head>
@@ -28,101 +27,105 @@
 <div id="blue"></div>
 
 <script>
-/* ------- full-screen & wake-lock helpers ---------------------------- */
+/* ---------- full-screen & wake-lock --------------------------------- */
 async function goFullScreen(){
     if(!document.fullscreenElement){
-        try{ await document.documentElement.requestFullscreen(); }
-        catch(e){ /* silently ignored (user refused) */ }
+        try{ await document.documentElement.requestFullscreen(); }catch{}
     }
 }
-let wakeLock = null;
+let wakeLock=null;
 async function lockScreen(){
-    try{
-        wakeLock = await navigator.wakeLock?.request?.('screen');
-        if(wakeLock){
-            wakeLock.addEventListener('release', ()=> console.log('Wake-Lock released'));
-        }
-    }catch(e){ console.warn('Wake-Lock failed:',e); }
+    try{ wakeLock = await navigator.wakeLock?.request?.('screen'); }
+    catch{}
 }
 document.addEventListener('click', async ()=>{ await goFullScreen(); await lockScreen(); });
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='visible') lockScreen(); });
 
-/* Re-request the lock if the tab regains visibility */
-document.addEventListener('visibilitychange', ()=>{
-    if(document.visibilityState==='visible') lockScreen();
-});
+/* ---------- time helpers ------------------------------------------- */
+const targets=[{h:6,m:45},{h:12,m:30},{h:17,m:30}];
+const FLASH_MS = 30_000;          // 30 s pre-alarm
+const HOLD_MS  =120_000;          // 2 min solid blue
 
-/* ------- time-helpers ---------------------------------------------- */
-function makeTime(base, h,m,s=0){
+function makeTime(base,h,m,s=0){
     return new Date(base.getFullYear(),base.getMonth(),base.getDate(),h,m,s,0);
 }
-function getPeriod(now){
-    const d = now;
-    const p1s = makeTime(d, 6,45);
-    const p1e = makeTime(d,12,30);
-    const p2s = makeTime(d,12,31);
-    const p2e = makeTime(d,17,30);
-    const p3s = makeTime(d,17,31);
-    const p3e = makeTime(d,6,45); p3e.setDate(p3e.getDate()+1);     // tomorrow 06:45
-
-    if(now>=p1s && now<p1e) return {start:p1s,end:p1e};
-    if(now>=p2s && now<p2e) return {start:p2s,end:p2e};
-    if(now>=p3s)           return {start:p3s,end:p3e};              // evening->night
-    /* before 06:45 → belong to previous evening period */
-    const prev = new Date(d); prev.setDate(d.getDate()-1);
-    return {start:makeTime(prev,17,31), end:p1s};
+/* Return the most recent target (time object) not after ‘now’ */
+function lastTarget(now){
+    let last=null;
+    for(const t of targets){
+        const occ = makeTime(now,t.h,t.m);
+        if(now>=occ && (!last || occ>last)) last=occ;
+    }
+    if(!last){                    // we’re before 06:45 – grab yesterday’s 17:30
+        const y=new Date(now); y.setDate(now.getDate()-1);
+        last = makeTime(y,17,30);
+    }
+    return last;
+}
+/* Return the next target Date strictly after ‘now’ */
+function nextTarget(now){
+    let next=null;
+    for(const t of targets){
+        const occ = makeTime(now,t.h,t.m);
+        if(occ<=now) occ.setDate(occ.getDate()+1);
+        if(!next||occ<next) next=occ;
+    }
+    return next;
 }
 
-const flashTargets = [
-    {h: 6,m:45},
-    {h:12,m:30},
-    {h:17,m:30}
-];
-
-/* ------- main animation loop --------------------------------------- */
-const blueDiv = document.getElementById('blue');
-let flashing = false, flashTimer = null, flashState = true;
+/* ---------- visual state helpers ----------------------------------- */
+const blueDiv=document.getElementById('blue');
+let flashing=false, flashTimer=null, flashState=true;
 
 function startFlash(){
     if(flashing) return;
-    flashing = true;
-    blueDiv.style.display='none';      // hide overlay, we’ll flash whole BG
-    flashTimer = setInterval(()=>{
+    flashing=true;
+    blueDiv.style.display='none';
+    flashTimer=setInterval(()=>{
         document.body.style.backgroundColor = flashState? '#ffff00':'#0000ff';
-        flashState = !flashState;
-    },250);                            // 2 Hz  (500 ms cycle → 250 ms per colour)
+        flashState=!flashState;
+    },250);                       // 2 Hz (250 ms per frame)
 }
-
 function stopFlash(){
     if(!flashing) return;
     clearInterval(flashTimer);
-    flashTimer = null;
-    flashing = false;
-    document.body.style.backgroundColor='#ffff00';   // reset to yellow base
-    blueDiv.style.display='block';
+    flashing=false;
+    flashTimer=null;
 }
 
+/* ---------- main loop ---------------------------------------------- */
 function update(){
     const now = new Date();
 
-    /* ---- decide whether we’re inside any 30-s flash window ---------- */
-    let inFlash = false;
-    for(const t of flashTargets){
-        const target = makeTime(now,t.h,t.m,0);
-        if(target < now) target.setDate(target.getDate()+1);        // next occurrence
-        const diff = target - now;
-        if(diff<=30000 && diff>0){ inFlash=true; break; }
-    }
-    if(inFlash) startFlash(); else stopFlash();
+    /* --- decide which phase we’re in --------------------------------*/
+    const nT   = nextTarget(now);
+    const lT   = lastTarget(now);
+    const holdStart = lT.getTime();
+    const holdEnd   = holdStart + HOLD_MS;
+    const flashStart= nT.getTime() - FLASH_MS;
 
-    if(!flashing){
-        /* ---- normal overlay update --------------------------------- */
-        const {start,end} = getPeriod(now);
-        const progress = Math.min(1,Math.max(0,(now-start)/(end-start)));
-        blueDiv.style.width = (progress*100).toFixed(4)+'%';
+    if(now.getTime() >= flashStart && now < nT){           // FLASH
+        startFlash();
+        return;                                            // flashing draws everything
     }
+    stopFlash();                                           // ensure flash is off
+
+    if(now >= holdStart && now < holdEnd){                 // SOLID BLUE HOLD
+        blueDiv.style.display='none';
+        document.body.style.backgroundColor='#0000ff';
+        return;
+    }
+
+    /* TIMER PHASE ----------------------------------------------------*/
+    blueDiv.style.display='block';
+    document.body.style.backgroundColor='#ffff00';
+
+    /* progress from 0->1 between holdEnd and nextTarget */
+    const progress = (now - holdEnd) / (nT - holdEnd);
+    blueDiv.style.width = `${Math.min(1,Math.max(0,progress))*100}%`;
 }
-update();                          // run immediately
-setInterval(update,1000);          // …then every second
+update();
+setInterval(update,1000);
 </script>
 </body>
 </html>
