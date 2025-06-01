@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Yellow → Blue Timer Screen (v3)</title>
+<title>Yellow → Blue Timer Screen (iPad-proof)</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
     html,body{
@@ -10,148 +10,136 @@
         padding:0;
         height:100%;
         overflow:hidden;
-        background:#ffff00;          /* default yellow */
+        background:#ffff00;           /* default yellow */
         touch-action:none;
     }
-    #blue{                          /* overlay that grows from the right */
+    #blue{                           /* overlay that grows from the right */
         position:fixed;
         top:0; right:0; bottom:0;
         width:0;
         background:#0000ff;
         pointer-events:none;
-        transition:width 1s linear; /* smooth 1-s refresh */
+        transition:width 1s linear;
     }
 </style>
+
+<!--  ❱❱  NoSleep.js 0.12.0 (minified, 1.4 KB)  ❰❰  -->
+<script>
+/*! NoSleep.js v0.12.0 – github.com/richtr/NoSleep.js – MIT */
+var NoSleep=function(){"use strict";function e(e){this.hasAutomaticPlaybackRestriction=void 0!==e?e:!1,this.noSleepTimer=null,this.wakeLock=null,this.enabled=!1,this._init()}return e.prototype._init=function(){this._wakeLockEnabled=!!("wakeLock"in navigator),this._addSource()},e.prototype._addSource=function(){if(this._wakeLockEnabled)return;this.noSleepTimer=document.createElement("video"),this.noSleepTimer.setAttribute("playsinline",""),this.noSleepTimer.src="data:video/mp4;base64,AAAAHGZ0eXBtcDQyAAAAAGlzb21pc28yYXZjAAAAAAABAAAAGG1wNDFtcDQxaXNvbWF2YzEAAAADAGlsc3QAAAAAAENJu2lnbm/EAQAAAAECAwQFBgcICQoLDA0ODw==",this.noSleepTimer.loop=!0,this.noSleepTimer.muted=!0,this.noSleepTimer.playsInline=!0},e.prototype.enable=function(){var e=this;if(this.enabled)return;if(this._wakeLockEnabled)navigator.wakeLock.request("screen").then((function(t){e.wakeLock=t,e.enabled=!0,e.wakeLock.addEventListener("release",(function(){e.enabled=!1,e.enable()}))})).catch((function(){e._fallbackEnable()}));else this._fallbackEnable()},e.prototype._fallbackEnable=function(){var e=this;if(this.noSleepTimer){var t=this.noSleepTimer;var n=function(){t.removeEventListener("timeupdate",n),t.removeEventListener("playing",n),t.play(),e.enabled=!0};t.addEventListener("timeupdate",n),t.addEventListener("playing",n),t.play()}},e.prototype.disable=function(){this.enabled=!1,this.wakeLock&&(this.wakeLock.release(),this.wakeLock=null),this.noSleepTimer&&(this.noSleepTimer.pause(),this.noSleepTimer.currentTime=0)},e}();
+</script>
 </head>
 <body>
 <div id="blue"></div>
 
 <script>
-/* ---------- full-screen ------------------------------------------------ */
+/* ---------- full-screen & wake-lock orchestrator ------------------- */
 async function goFullScreen(){
     if(!document.fullscreenElement){
         try{ await document.documentElement.requestFullscreen(); }catch{}
     }
 }
 
-/* ---------- screen-wake lock ------------------------------------------ */
-let wakeLockSentinel=null;
+const noSleep = new NoSleep();       // fallback helper
+let nativeSentinel = null;           // holds WakeLockSentinel when supported
 
-async function lockScreen(){
-    /* API unsupported? – silently ignore so rest of page still works */
-    if(!('wakeLock' in navigator)) return;
+async function tryNativeWakeLock(){
+    if(!('wakeLock' in navigator)) return false;
     try{
-        /* if already locked, do nothing */
-        if(wakeLockSentinel && wakeLockSentinel.released===false) return;
-
-        wakeLockSentinel = await navigator.wakeLock.request('screen');
-
-        /* if the browser releases it (tab hidden, low battery, etc.) */
-        wakeLockSentinel.addEventListener('release', ()=>{
-            console.log('Wake-lock released – re-acquiring …');
-            lockScreen();           // immediately re-request
-        });
-        console.log('Wake-lock acquired');
-    }catch(err){
-        console.warn('Wake-lock request failed:', err);
+        nativeSentinel = await navigator.wakeLock.request('screen');
+        nativeSentinel.addEventListener('release', ()=> tryNativeWakeLock());
+        return true;
+    }catch{
+        return false;
     }
 }
 
-/* need a user gesture – first click starts everything */
+async function enableWakeLock(){
+    /* 1️⃣ first, attempt the native API */
+    const ok = await tryNativeWakeLock();
+    /* 2️⃣ if that failed (or later gets released), use NoSleep */
+    if(!ok) noSleep.enable();
+}
+
 document.addEventListener('click', async ()=>{
     await goFullScreen();
-    await lockScreen();
+    await enableWakeLock();
 });
-/* re-acquire each time we regain visibility */
 document.addEventListener('visibilitychange', ()=>{
-    if(document.visibilityState==='visible') lockScreen();
+    if(document.visibilityState==='visible') enableWakeLock();
 });
 
-/* ---------- time helpers ---------------------------------------------- */
+/* ---------- timer constants & helpers ----------------------------- */
 const targets=[{h:6,m:45},{h:12,m:30},{h:17,m:30}];
-const FLASH_MS = 30_000;          // 30 s pre-alarm flash
-const HOLD_MS  =120_000;          // 2-minute solid-blue hold
+const FLASH_MS = 30_000;
+const HOLD_MS  =120_000;
 
 function makeTime(base,h,m,s=0){
     return new Date(base.getFullYear(),base.getMonth(),base.getDate(),h,m,s,0);
 }
-/* most recent alarm already passed */
 function lastTarget(now){
     let last=null;
     for(const t of targets){
-        const occ = makeTime(now,t.h,t.m);
-        if(now>=occ && (!last || occ>last)) last=occ;
+        const d=makeTime(now,t.h,t.m); if(now>=d&&( !last||d>last)) last=d;
     }
-    if(!last){                        // before 06:45 → use yesterday’s 17:30
-        const y=new Date(now); y.setDate(now.getDate()-1);
-        last = makeTime(y,17,30);
-    }
+    if(!last){const y=new Date(now);y.setDate(now.getDate()-1);last=makeTime(y,17,30);}
     return last;
 }
-/* next alarm strictly in the future */
 function nextTarget(now){
     let next=null;
     for(const t of targets){
-        const occ = makeTime(now,t.h,t.m);
-        if(occ<=now) occ.setDate(occ.getDate()+1);
-        if(!next || occ<next) next=occ;
+        const d=makeTime(now,t.h,t.m); if(d<=now) d.setDate(d.getDate()+1);
+        if(!next||d<next) next=d;
     }
     return next;
 }
 
-/* ---------- visual state --------------------------------------------- */
+/* ---------- view state machine ------------------------------------ */
 const blueDiv=document.getElementById('blue');
-let flashing=false, flashTimer=null, flashState=true;
+let flashing=false, flashTimer=null, flashBlink=true;
 
 function startFlash(){
     if(flashing) return;
     flashing=true;
-    blueDiv.style.display='none';         // hide overlay during flash
+    blueDiv.style.display='none';
     flashTimer=setInterval(()=>{
-        document.body.style.backgroundColor = flashState ? '#ffff00' : '#0000ff';
-        flashState = !flashState;
-    },250);                               // 2 Hz (250 ms per frame)
+        document.body.style.backgroundColor = flashBlink ? '#ffff00':'#0000ff';
+        flashBlink=!flashBlink;
+    },250);
 }
 function stopFlash(){
     if(!flashing) return;
     clearInterval(flashTimer);
-    flashing=false;
-    flashTimer=null;
+    flashing=false; flashTimer=null;
 }
 
-/* ---------- main loop ------------------------------------------------ */
 function update(){
-    const now = new Date();
+    const now=new Date();
+    const nextT=nextTarget(now);
+    const lastT=lastTarget(now);
+    const holdStart=lastT.getTime();
+    const holdEnd=holdStart+HOLD_MS;
+    const flashStart=nextT.getTime()-FLASH_MS;
 
-    const nextT = nextTarget(now);
-    const lastT = lastTarget(now);
-    const holdStart = lastT.getTime();
-    const holdEnd   = holdStart + HOLD_MS;
-    const flashStart= nextT.getTime() - FLASH_MS;
+    /* Flash window */
+    if(now.getTime()>=flashStart && now<nextT){ startFlash(); return; }
+    stopFlash();
 
-    /* 1. Flash phase (yellow/blue alternating) */
-    if(now.getTime() >= flashStart && now < nextT){
-        startFlash();
-        return;                           // flashing handles the view
-    }
-    stopFlash();                          // ensure flash stopped
-
-    /* 2. Solid blue hold for 2 minutes after each target */
-    if(now >= holdStart && now < holdEnd){
+    /* Solid blue hold */
+    if(now>=holdStart && now<holdEnd){
         blueDiv.style.display='none';
         document.body.style.backgroundColor='#0000ff';
         return;
     }
 
-    /* 3. Normal timer phase */
+    /* Normal timer */
     blueDiv.style.display='block';
     document.body.style.backgroundColor='#ffff00';
-
-    const progress = (now - holdEnd) / (nextT - holdEnd); // 0→1
-    blueDiv.style.width = `${Math.min(1,Math.max(0,progress))*100}%`;
+    const progress=(now-holdEnd)/(nextT-holdEnd);
+    blueDiv.style.width=`${Math.min(1,Math.max(0,progress))*100}%`;
 }
-update();                       // run once immediately
-setInterval(update,1000);       // …then every second
+update();
+setInterval(update,1000);
 </script>
 </body>
 </html>
